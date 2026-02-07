@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="robots" content="noindex, nofollow">
+<meta name="googlebot" content="noindex, nofollow">
+
+<title>test</title>
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+
+.image-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-stage img {
+  width: 100%;
+  height: auto;
+}
+
+.image-topbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 35px;
+  background: rgba(0,0,0,0.6);
+}
+
+.sound-toggle {
+  position: fixed;
+  top: 0px;
+  right: 14px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
+  z-index: 9999;
+  box-sizing: border-box;
+}
+
+.switch {
+  position: relative;
+  width: 44px;
+  height: 20px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  inset: 0;
+  background: #666;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  top: 2px;
+  background: #fff;
+  border-radius: 50%;
+  transition: 0.2s;
+}
+
+input:checked + .slider {
+  background: #4caf50;
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+    
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+*:focus {
+  outline: none;
+}
+</style>
+</head>
+<body>
+
+<div class="image-stage">
+  <div class="image-topbar"></div>
+  <img src="img/1.jpg" alt="">
+</div>
+
+<div class="sound-toggle">
+  <span>Sound</span>
+  <label class="switch">
+    <input type="checkbox" id="soundSwitch">
+    <span class="slider"></span>
+  </label>
+</div>
+
+<script>
+const soundSwitch = document.getElementById('soundSwitch');
+let soundSwitchValue = soundSwitch.checked;
+
+soundSwitch.addEventListener('change', () => {
+  soundSwitchValue = soundSwitch.checked;
+});
+</script>
+
+</body>
+</html>
