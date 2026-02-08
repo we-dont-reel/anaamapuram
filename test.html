@@ -6,8 +6,20 @@
 
 <meta name="robots" content="noindex, nofollow">
 <meta name="googlebot" content="noindex, nofollow">
+<meta name="robots" content="notranslate">
+<meta name="google" content="notranslate">
 
-<title>test</title>
+
+<title>Deyyam Stories</title>
+    
+<meta name="description" content="Deyyam Stories">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Deyyam Stories">
+<meta property="og:site_name" content="Deyyam Stories">
+<meta property="og:description" content="Deyyam Stories">
+<meta property="og:url" content="https://deyyamstories.com/">
+<meta property="og:image" content="https://deyyamstories.com/img/og-image-1.jpg">
+<meta property="og:image:type" content="image/jpeg">
 
 <style>
 html, body {
@@ -125,10 +137,12 @@ input:checked + .slider:before {
 
 <script>
 const soundSwitch = document.getElementById('soundSwitch');
-let soundSwitchValue = soundSwitch.checked;
 
-soundSwitch.addEventListener('change', () => {
-  soundSwitchValue = soundSwitch.checked;
+soundSwitch.addEventListener('click', () => {
+  if(soundSwitch.checked)
+      alert('Switched on');
+  else
+      alert('switched off');
 });
 </script>
 
