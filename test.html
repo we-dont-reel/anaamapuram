@@ -40,9 +40,9 @@ html, body {
   justify-content: center;
 }
 
-.image-stage img {
+.image-stage .swiper-stays-here {
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 
 .image-topbar {
@@ -125,7 +125,7 @@ input:checked + .slider:before {
 
 <div class="image-stage">
   <div class="image-topbar"></div>
-  <img src="img/1.jpg" alt="">
+  <div class="swiper-stays-here"></div>
 </div>
 
 <div class="sound-toggle">
@@ -166,12 +166,32 @@ var currentTrack = "";
 <script src="swiper/swiper.js"></script>
     
 <script>
+document.addEventListener('DOMContentLoaded', function () {
+  const container = document.querySelector('.swiper-stays-here');
+
+  container.innerHTML =
+    '<div class="swiper">' +
+      '<div class="swiper-wrapper">' +
+        mediaData.map((_, i) =>
+          '<div class="swiper-slide">' + i + '</div>'
+        ).join('') +
+      '</div>' +
+    '</div>';
+
+  window.swiper = new Swiper('.swiper', {
+    direction: 'horizontal',
+    loop: false
+  });
+});
+</script>
+    
+<script>
 const soundSwitch = document.getElementById('soundSwitch');
 soundSwitch.addEventListener('click', () => {
   if(soundSwitch.checked)
-    alert('Switched on');
+    console.log('Switched on');
   else
-    alert('switched off');
+    console.log('switched off');
 });
 </script>
     
