@@ -265,7 +265,7 @@ function soundStart() {
     window.howl = new Howl({
       src: [track],
       loop: true,
-      html5: false,
+      html5: true,
       volume: 1
     });
     window.howl.play();
@@ -275,12 +275,12 @@ function soundStart() {
     const oldHowl = window.howl;
     window.howl = null;
 
-    oldHowl.fade(oldHowl.volume(), 0, 200);
+    oldHowl.fade(oldHowl.volume(), 0, 500);
     setTimeout(() => {
       oldHowl.stop();
       oldHowl.unload();
       startNew();
-    }, 200);
+    }, 500);
   } else {
     startNew();
   }
