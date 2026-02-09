@@ -323,6 +323,15 @@ document.addEventListener('webkitvisibilitychange', () => {
 });
 window.addEventListener('orientationchange', soundStop);
 window.addEventListener('hashchange', soundStop);
+window.addEventListener('popstate', () => soundStop());
+window.addEventListener('unload', () => soundStop());
+setInterval(() => {
+  if (document.hidden || document.webkitHidden) {
+    if (window.howl && currentTrack !== "none") {
+      soundStop();
+    }
+  }
+}, 1000);
 </script>
     
 </body>
