@@ -177,10 +177,11 @@ const mediaData = [
   }
 ];
 var slideIndex = 0;
-var currentTrack = "";
+var currentTrack = "none";
 </script>
 
 <script src="swiper/swiper.js"></script>
+<script src="howler/howler.js"></script>
     
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -214,15 +215,16 @@ document.addEventListener('DOMContentLoaded', function () {
 const soundSwitch = document.getElementById('soundSwitch');
 soundSwitch.addEventListener('click', () => {
   if(soundSwitch.checked)
-    console.log('Switched on');
+    soundStart();
   else
-    console.log('switched off');
+    soundStop();
 });
 </script>
     
 <script>
 function mediaPopulator(swiper) {
   slideIndex = swiper.activeIndex;
+  soundStart();
 
   const slides = swiper.slides;
   const curr = slides[slideIndex];
@@ -245,6 +247,75 @@ function mediaPopulator(swiper) {
     next.appendChild(img);
   }
 }
+</script>
+    
+<script>
+function soundStart() {
+  const soundSwitch = document.getElementById('soundSwitch');
+  if (!soundSwitch || !soundSwitch.checked) return;
+
+  const index = slideIndex;
+  const track = mediaData[index].track;
+  if (!track) return;
+
+  if (currentTrack === track) return;
+
+  const startNew = () => {
+    currentTrack = track;
+    window.howl = new Howl({
+      src: [track],
+      loop: true,
+      html5: false,
+      volume: 1
+    });
+    window.howl.play();
+  };
+
+  if (window.howl) {
+    const oldHowl = window.howl;
+    window.howl = null;
+
+    oldHowl.fade(oldHowl.volume(), 0, 200);
+    setTimeout(() => {
+      oldHowl.stop();
+      oldHowl.unload();
+      startNew();
+    }, 200);
+  } else {
+    startNew();
+  }
+}
+</script>
+    
+<script>
+function soundStop() {
+  const soundSwitch = document.getElementById('soundSwitch');
+  if (soundSwitch) soundSwitch.checked = false;
+
+  if (!window.howl) {
+    currentTrack = "none";
+    return;
+  }
+
+  const oldHowl = window.howl;
+  window.howl = null;
+  currentTrack = "none";
+
+  oldHowl.fade(oldHowl.volume(), 0, 200);
+  setTimeout(() => {
+    oldHowl.stop();
+    oldHowl.unload();
+  }, 200);
+}
+</script>
+    
+<script>
+window.addEventListener('blur', soundStop);
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) soundStop();
+});
+window.addEventListener('pagehide', soundStop);
+window.addEventListener('beforeunload', soundStop);
 </script>
     
 </body>
