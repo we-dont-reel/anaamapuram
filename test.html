@@ -184,6 +184,18 @@ var currentTrack = "none";
 <script src="howler/howler.js"></script>
     
 <script>
+let swipePauseTimer;
+
+function pauseSwipes(swiper, ms) {
+  swiper.allowTouchMove = false;
+  clearTimeout(swipePauseTimer);
+  swipePauseTimer = setTimeout(() => {
+    swiper.allowTouchMove = true;
+  }, ms);
+}
+</script>
+    
+<script>
 document.addEventListener('DOMContentLoaded', function () {
   const container = document.querySelector('.swiper-stays-here');
 
@@ -202,9 +214,11 @@ document.addEventListener('DOMContentLoaded', function () {
     on: {
       init(swiper) {
       mediaPopulator(swiper);
+      pauseSwipes(swiper, 500);
       },
       slideChangeTransitionEnd(swiper) {
       mediaPopulator(swiper);
+      pauseSwipes(swiper, 500);
       }
     }
   });
