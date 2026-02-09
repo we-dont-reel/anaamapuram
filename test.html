@@ -156,7 +156,7 @@ input:checked + .slider:before {
 
 <div class="image-stage">
   <div class="image-topbar"></div>
-  <div id="loadingText">Loading...</div>
+  <div id="loadingText">Loading, please wait &#128578;</div>
   <div class="swiper-stays-here"></div>
 </div>
 
@@ -312,12 +312,12 @@ function soundStart() {
     const oldHowl = window.howl;
     window.howl = null;
 
-    oldHowl.fade(oldHowl.volume(), 0, 500);
-    setTimeout(() => {
+    oldHowl.once('fade', () => {
       oldHowl.stop();
       oldHowl.unload();
       startNew();
-    }, 500);
+    });
+    oldHowl.fade(oldHowl.volume(), 0, 500);
   } else {
     startNew();
   }
@@ -338,11 +338,11 @@ function soundStop() {
   window.howl = null;
   currentTrack = "none";
 
+  oldHowl.once('fade', () => {
+      oldHowl.stop();
+      oldHowl.unload();
+    });
   oldHowl.fade(oldHowl.volume(), 0, 200);
-  setTimeout(() => {
-    oldHowl.stop();
-    oldHowl.unload();
-  }, 200);
 }
 </script>
     
