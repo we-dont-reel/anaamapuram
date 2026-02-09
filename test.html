@@ -4,10 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="googlebot" content="noindex, nofollow">
-<meta name="robots" content="notranslate">
+<meta name="googlebot" content="noindex, nofollow, notranslate">
 <meta name="google" content="notranslate">
-
 
 <title>Deyyam Stories</title>
     
@@ -144,23 +142,23 @@ input:checked + .slider:before {
 <script>
 const mediaData = [
   {
-    images: "https://dontreel.com/test/pic1.jpg",
+    image: "https://dontreel.com/test/pic1.jpg",
     track: "https://dontreel.com/test/track1.mp3"
   },
   {
-    images: "https://dontreel.com/test/pic2.jpg",
+    image: "https://dontreel.com/test/pic2.jpg",
     track: "https://dontreel.com/test/track2.mp3"
   },
   {
-    images: "https://dontreel.com/test/pic3.jpg",
+    image: "https://dontreel.com/test/pic3.jpg",
     track: "https://dontreel.com/test/track2.mp3"
   },
   {
-    images: "https://dontreel.com/test/pic4.jpg",
+    image: "https://dontreel.com/test/pic4.jpg",
     track: "https://dontreel.com/test/track2.mp3"
   },
   {
-    images: "https://dontreel.com/test/pic5.jpg",
+    image: "https://dontreel.com/test/pic5.jpg",
     track: "https://dontreel.com/test/track3.mp3"
   }
 ];
@@ -178,14 +176,22 @@ document.addEventListener('DOMContentLoaded', function () {
     '<div class="swiper">' +
       '<div class="swiper-wrapper">' +
         mediaData.map((_, i) =>
-          '<div class="swiper-slide">' + i + '</div>'
+          '<div class="swiper-slide" style="display:flex;align-items:center;justify-content:center">' + i + '</div>'
         ).join('') +
       '</div>' +
     '</div>';
 
-  window.swiper = new Swiper('.swiper', {
+  const swiper = new Swiper('.swiper', {
     direction: 'horizontal',
-    loop: false
+    loop: false,
+    on: {
+      init(swiper) {
+      mediaPopulator(swiper);
+      },
+      slideChangeTransitionEnd(swiper) {
+      mediaPopulator(swiper);
+      }
+    }
   });
 });
 </script>
@@ -198,6 +204,33 @@ soundSwitch.addEventListener('click', () => {
   else
     console.log('switched off');
 });
+</script>
+    
+<script>
+function mediaPopulator(swiper) {
+  slideIndex = swiper.activeIndex;
+
+  const slides = swiper.slides;
+  const curr = slides[slideIndex];
+  const next = slides[slideIndex + 1];
+
+  if (curr && !curr.querySelector('img')) {
+    const img = document.createElement('img');
+    img.src = mediaData[slideIndex].image;
+    if (slideIndex === 0) img.loading = 'eager';
+    img.style.width = '100%';
+    img.style.height = 'auto';
+    curr.appendChild(img);
+  }
+
+  if (next && !next.querySelector('img')) {
+    const img = document.createElement('img');
+    img.src = mediaData[slideIndex + 1].image;
+    img.style.width = '100%';
+    img.style.height = 'auto';
+    next.appendChild(img);
+  }
+}
 </script>
     
 </body>
