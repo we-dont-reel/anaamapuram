@@ -310,19 +310,29 @@ function soundStop() {
 </script>
     
 <script>
-window.addEventListener('blur', soundStop);
-document.addEventListener('visibilitychange', () => {
-  if (document.hidden) soundStop();
-});
-window.addEventListener('pagehide', soundStop);
-window.addEventListener('beforeunload', soundStop);
-setInterval(() => {
-  if (document.hidden || document.webkitHidden) {
-    if (window.howl && currentTrack !== "none") {
-      soundStop();
-    }
+function soundKill() {
+  const soundSwitch = document.getElementById('soundSwitch');
+  if (soundSwitch) soundSwitch.checked = false;
+
+  if (!window.howl) {
+    currentTrack = "none";
+    return;
   }
-}, 1000);
+
+  window.howl.stop();
+  window.howl.unload();
+  window.howl = null;
+  currentTrack = "none";
+}
+</script>
+    
+<script>
+window.addEventListener('blur', soundKill);
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) soundKill();
+});
+window.addEventListener('pagehide', soundKill);
+window.addEventListener('beforeunload', soundKill);
 </script>
     
 </body>
