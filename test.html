@@ -122,6 +122,20 @@ input:checked + .slider:before {
 .swiper, .swiper-wrapper { 
   height: 100%; 
 }
+    
+.swiper-slide {
+  position: relative;
+}
+
+.swiper-slide img {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
+  height: auto;
+  display: block;
+}
 </style>
 </head>
 <body>
@@ -176,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function () {
     '<div class="swiper">' +
       '<div class="swiper-wrapper">' +
         mediaData.map((_, i) =>
-          '<div class="swiper-slide" style="display:flex;align-items:center;justify-content:center">' + i + '</div>'
+          '<div class="swiper-slide">' + i + '</div>'
         ).join('') +
       '</div>' +
     '</div>';
