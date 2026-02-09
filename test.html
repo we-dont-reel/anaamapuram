@@ -316,15 +316,6 @@ document.addEventListener('visibilitychange', () => {
 });
 window.addEventListener('pagehide', soundStop);
 window.addEventListener('beforeunload', soundStop);
-window.addEventListener('freeze', soundStop);
-window.addEventListener('focusout', soundStop);
-document.addEventListener('webkitvisibilitychange', () => {
-  if (document.webkitHidden) soundStop();
-});
-window.addEventListener('orientationchange', soundStop);
-window.addEventListener('hashchange', soundStop);
-window.addEventListener('popstate', () => soundStop());
-window.addEventListener('unload', () => soundStop());
 setInterval(() => {
   if (document.hidden || document.webkitHidden) {
     if (window.howl && currentTrack !== "none") {
