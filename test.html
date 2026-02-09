@@ -136,12 +136,27 @@ input:checked + .slider:before {
   height: auto;
   display: block;
 }
+
+#loadingText {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+  font-family: system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  background: #000;
+  z-index: 5;
+}
 </style>
 </head>
 <body>
 
 <div class="image-stage">
   <div class="image-topbar"></div>
+  <div id="loadingText">Loading...</div>
   <div class="swiper-stays-here"></div>
 </div>
 
@@ -247,7 +262,15 @@ function mediaPopulator(swiper) {
   if (curr && !curr.querySelector('img')) {
     const img = document.createElement('img');
     img.src = mediaData[slideIndex].image;
-    if (slideIndex === 0) img.loading = 'eager';
+    if (slideIndex === 0) {
+        img.loading = 'eager';
+        const removeLoading = () => {
+          const loading = document.getElementById('loadingText');
+          if (loading) loading.remove();
+        };
+img.onload = removeLoading;
+if (img.complete) removeLoading();
+    }
     img.style.width = '100%';
     img.style.height = 'auto';
     curr.appendChild(img);
