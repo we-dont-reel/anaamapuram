@@ -19,6 +19,8 @@
 <meta property="og:url" content="https://deyyamstories.com/">
 <meta property="og:image" content="https://deyyamstories.com/img/og-image-1.jpg">
 <meta property="og:image:type" content="image/jpeg">
+    
+<link rel="stylesheet" href="swiper/swiper.css">
 
 <style>
 html, body {
@@ -134,6 +136,35 @@ input:checked + .slider:before {
   </label>
 </div>
 
+<script>
+const mediaData = [
+  {
+    images: "https://dontreel.com/test/pic1.jpg",
+    track: "https://dontreel.com/test/track1.mp3"
+  },
+  {
+    images: "https://dontreel.com/test/pic2.jpg",
+    track: "https://dontreel.com/test/track2.mp3"
+  },
+  {
+    images: "https://dontreel.com/test/pic3.jpg",
+    track: "https://dontreel.com/test/track2.mp3"
+  },
+  {
+    images: "https://dontreel.com/test/pic4.jpg",
+    track: "https://dontreel.com/test/track2.mp3"
+  },
+  {
+    images: "https://dontreel.com/test/pic5.jpg",
+    track: "https://dontreel.com/test/track3.mp3"
+  }
+];
+var slideIndex = 0;
+var currentTrack = "";
+</script>
+
+<script src="swiper/swiper.js"></script>
+    
 <script>
 const soundSwitch = document.getElementById('soundSwitch');
 soundSwitch.addEventListener('click', () => {
