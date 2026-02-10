@@ -193,7 +193,6 @@ const mediaData = [
 ];
 var slideIndex = 0;
 var currentTrack = "none";
-var wakeLock = null;
 </script>
 
 <script src="swiper/swiper.js"></script>
@@ -291,15 +290,6 @@ if (img.complete) removeLoading();
 function soundStart() {
   const soundSwitch = document.getElementById('soundSwitch');
   if (!soundSwitch || !soundSwitch.checked) return;
-    
-  if ("wakeLock" in navigator && !wakeLock) {
-    navigator.wakeLock.request("screen")
-    .then(lock => {
-      wakeLock = lock;
-      lock.addEventListener('release', () => wakeLock = null);
-    })
-    .catch(()=>{});
-  }
 
   const index = slideIndex;
   const track = mediaData[index].track;
@@ -336,7 +326,6 @@ function soundStart() {
     
 <script>
 function soundStop() {
-  if (wakeLock) wakeLock.release().finally(() => wakeLock = null);
   const soundSwitch = document.getElementById('soundSwitch');
   if (soundSwitch) soundSwitch.checked = false;
 
@@ -359,7 +348,6 @@ function soundStop() {
     
 <script>
 function soundKill() {
-  if (wakeLock) wakeLock.release().finally(() => wakeLock = null);
   const soundSwitch = document.getElementById('soundSwitch');
   if (soundSwitch) soundSwitch.checked = false;
 
