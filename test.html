@@ -308,6 +308,7 @@ function soundStart() {
   if (currentTrack === track) return;
 
   const startNew = () => {
+    if (!document.getElementById('soundSwitch').checked) return;
     currentTrack = track;
     window.howl = new Howl({
       src: [track],
