@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="googlebot" content="noindex, nofollow, notranslate">
+<meta name="google" content="notranslate">
+
+<title>Deyyam Stories</title>
+    
+<meta name="description" content="Deyyam Stories">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Deyyam Stories">
+<meta property="og:site_name" content="Deyyam Stories">
+<meta property="og:description" content="Deyyam Stories">
+<meta property="og:url" content="https://deyyamstories.com/">
+<meta property="og:image" content="https://deyyamstories.com/img/og-image-1.jpg">
+<meta property="og:image:type" content="image/jpeg">
+    
+<link rel="stylesheet" href="swiper/swiper.css">
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+
+.image-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-stage .swiper-stays-here {
+  width: 100%;
+  height: 100%;
+}
+
+.image-topbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 39px;
+  background: black;
+}
+
+.sound-toggle {
+  position: fixed;
+  top: 4px;
+  right: 14px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
+  z-index: 9999;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+.switch {
+  position: relative;
+  width: 44px;
+  height: 20px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  inset: 0;
+  background: #666;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  top: 2px;
+  background: #fff;
+  border-radius: 50%;
+  transition: 0.2s;
+}
+
+input:checked + .slider {
+  background: #4caf50;
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+    
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+*:focus {
+  outline: none;
+}
+    
+.swiper, .swiper-wrapper { 
+  height: 100%; 
+}
+    
+.swiper-slide {
+  position: relative;
+}
+
+.swiper-slide img {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+#loadingText {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+  font-family: system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  background: #000;
+  z-index: 5;
+}
+</style>
+</head>
+<body>
+
+<div class="image-stage">
+  <div class="image-topbar"></div>
+  <div id="loadingText">Loading, please wait &#128578;</div>
+  <div class="swiper-stays-here"></div>
+</div>
+
+<div class="sound-toggle">
+  <span>Sound</span>
+  <label class="switch">
+    <input type="checkbox" id="soundSwitch">
+    <span class="slider"></span>
+  </label>
+</div>
+
+<script>
+const mediaData = [
+  {
+    image: "https://dontreel.com/anaamapuram/sw1/s0.jpg",
+    track: "https://dontreel.com/anaamapuram/sw1/title.mp3"
+  },
+  {
+    image: "https://dontreel.com/anaamapuram/sw1/s1.jpg",
+    track: "https://dontreel.com/anaamapuram/sw1/firsthouse.mp3"
+  },
+  {
+    image: "https://dontreel.com/anaamapuram/sw1/s2.jpg",
+    track: "https://dontreel.com/anaamapuram/sw1/firsthouse.mp3"
+  },
+  {
+    image: "https://dontreel.com/anaamapuram/sw1/s3.jpg",
+    track: "https://dontreel.com/anaamapuram/sw1/train.mp3"
+  },
+  {
+    image: "https://dontreel.com/anaamapuram/sw1/s4.jpg",
+    track: "https://dontreel.com/anaamapuram/sw1/morning.mp3"
+  },
+  {
+    image: "https://dontreel.com/anaamapuram/sw1/s5.jpg",
+    track: "https://dontreel.com/anaamapuram/sw1/bus.mp3"
+  },
+  {
+    image: "https://dontreel.com/anaamapuram/sw1/s6.jpg",
+    track: "https://dontreel.com/anaamapuram/sw1/bus.mp3"
+  },
+  {
+    image: "https://dontreel.com/anaamapuram/sw1/s7.jpg",
+    track: "https://dontreel.com/anaamapuram/sw1/happy.mp3"
+  },
+  {
+    image: "https://dontreel.com/anaamapuram/sw1/s8.jpg",
+    track: "https://dontreel.com/anaamapuram/sw1/firsthouse.mp3"
+  },
+  {
+    image: "https://dontreel.com/anaamapuram/sw1/s9.jpg",
+    track: "https://dontreel.com/anaamapuram/sw1/sad.mp3"
+  },
+  {
+    image: "https://dontreel.com/anaamapuram/sw1/s10.jpg",
+    track: "https://dontreel.com/anaamapuram/sw1/sad.mp3"
+  },
+  {
+    image: "https://dontreel.com/anaamapuram/sw1/s11.jpg",
+    track: "https://dontreel.com/anaamapuram/sw1/sad.mp3"
+  },
+  {
+    image: "https://dontreel.com/anaamapuram/sw1/s12.jpg",
+    track: "https://dontreel.com/anaamapuram/sw1/sad.mp3"
+  },
+  {
+    image: "https://dontreel.com/anaamapuram/sw1/s13.jpg",
+    track: "https://dontreel.com/anaamapuram/sw1/firsthouse.mp3"
+  },
+  {
+    image: "https://dontreel.com/anaamapuram/sw1/s14.jpg",
+    track: "https://dontreel.com/anaamapuram/sw1/darksleep.mp3"
+  },
+  {
+    image: "https://dontreel.com/anaamapuram/sw1/s15.jpg",
+    track: "https://dontreel.com/anaamapuram/sw1/temple.mp3"
+  },
+  {
+    image: "https://dontreel.com/anaamapuram/sw1/s16.jpg",
+    track: "https://dontreel.com/anaamapuram/sw1/hospital.mp3"
+  },
+  {
+    image: "https://dontreel.com/anaamapuram/sw1/s17.jpg",
+    track: "https://dontreel.com/anaamapuram/sw1/title.mp3"
+  },
+  {
+    image: "https://dontreel.com/anaamapuram/sw1/s18.jpg",
+    track: "https://dontreel.com/anaamapuram/sw1/kingly.mp3"
+  },
+  {
+    image: "https://dontreel.com/anaamapuram/sw1/s19.jpg",
+    track: "https://dontreel.com/anaamapuram/sw1/darksleep.mp3"
+  },
+  {
+    image: "https://dontreel.com/anaamapuram/sw1/s20.jpg",
+    track: "https://dontreel.com/anaamapuram/sw1/title.mp3"
+  }
+];
+var slideIndex = 0;
+var currentTrack = "none";
+var wakeLock = null;
+</script>
+
+<script src="swiper/swiper.js"></script>
+<script src="howler/howler.js"></script>
+    
+<script>
+let swipePauseTimer;
+
+function pauseSwipes(swiper, ms) {
+  swiper.allowTouchMove = false;
+  clearTimeout(swipePauseTimer);
+  swipePauseTimer = setTimeout(() => {
+    swiper.allowTouchMove = true;
+  }, ms);
+}
+</script>
+    
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const container = document.querySelector('.swiper-stays-here');
+
+  container.innerHTML =
+    '<div class="swiper">' +
+      '<div class="swiper-wrapper">' +
+        mediaData.map((_, i) =>
+          '<div class="swiper-slide">' + i + '</div>'
+        ).join('') +
+      '</div>' +
+    '</div>';
+
+  const swiper = new Swiper('.swiper', {
+    direction: 'horizontal',
+    loop: false,
+    on: {
+      init(swiper) {
+      mediaPopulator(swiper);
+      pauseSwipes(swiper, 500);
+      },
+      slideChangeTransitionEnd(swiper) {
+      mediaPopulator(swiper);
+      pauseSwipes(swiper, 500);
+      }
+    }
+  });
+});
+</script>
+    
+<script>
+const soundSwitch = document.getElementById('soundSwitch');
+soundSwitch.addEventListener('click', () => {
+  if(soundSwitch.checked)
+    soundStart();
+  else
+    soundStop();
+});
+</script>
+    
+<script>
+function mediaPopulator(swiper) {
+  slideIndex = swiper.activeIndex;
+  soundStart();
+
+  const slides = swiper.slides;
+  const curr = slides[slideIndex];
+  const next = slides[slideIndex + 1];
+
+  if (curr && !curr.querySelector('img')) {
+    const img = document.createElement('img');
+    img.src = mediaData[slideIndex].image;
+    if (slideIndex === 0) {
+        img.loading = 'eager';
+        const removeLoading = () => {
+          const loading = document.getElementById('loadingText');
+          if (loading) loading.remove();
+        };
+img.onload = removeLoading;
+if (img.complete) removeLoading();
+    }
+    img.style.width = '100%';
+    img.style.height = 'auto';
+    curr.appendChild(img);
+  }
+
+  if (next && !next.querySelector('img')) {
+    const img = document.createElement('img');
+    img.src = mediaData[slideIndex + 1].image;
+    img.style.width = '100%';
+    img.style.height = 'auto';
+    next.appendChild(img);
+  }
+}
+</script>
+    
+<script>
+function soundStart() {
+  const soundSwitch = document.getElementById('soundSwitch');
+  if (!soundSwitch || !soundSwitch.checked) return;
+    
+  if ("wakeLock" in navigator && !wakeLock) {
+    navigator.wakeLock.request("screen")
+    .then(lock => {
+      wakeLock = lock;
+      lock.addEventListener('release', () => wakeLock = null);
+    })
+    .catch(()=>{});
+  }
+
+  const index = slideIndex;
+  const track = mediaData[index].track;
+  if (!track) return;
+
+  if (currentTrack === track) return;
+
+  const startNew = () => {
+    if (!document.getElementById('soundSwitch').checked) return;
+    currentTrack = track;
+    window.howl = new Howl({
+      src: [track],
+      loop: true,
+      html5: false,
+      volume: 1
+    });
+    window.howl.play();
+  };
+
+  if (window.howl) {
+    const oldHowl = window.howl;
+    window.howl = null;
+
+    oldHowl.once('fade', () => {
+      oldHowl.stop();
+      oldHowl.unload();
+      startNew();
+    });
+    oldHowl.fade(oldHowl.volume(), 0, 500);
+  } else {
+    startNew();
+  }
+}
+</script>
+    
+<script>
+function soundStop() {
+  if (wakeLock) wakeLock.release().finally(() => wakeLock = null);
+  const soundSwitch = document.getElementById('soundSwitch');
+  if (soundSwitch) soundSwitch.checked = false;
+
+  if (!window.howl) {
+    currentTrack = "none";
+    return;
+  }
+
+  const oldHowl = window.howl;
+  window.howl = null;
+  currentTrack = "none";
+
+  oldHowl.once('fade', () => {
+      oldHowl.stop();
+      oldHowl.unload();
+    });
+  oldHowl.fade(oldHowl.volume(), 0, 200);
+}
+</script>
+    
+<script>
+function soundKill() {
+  if (wakeLock) wakeLock.release().finally(() => wakeLock = null);
+  const soundSwitch = document.getElementById('soundSwitch');
+  if (soundSwitch) soundSwitch.checked = false;
+
+  if (!window.howl) {
+    currentTrack = "none";
+    return;
+  }
+
+  window.howl.stop();
+  window.howl.unload();
+  window.howl = null;
+  currentTrack = "none";
+}
+</script>
+    
+<script>
+window.addEventListener('blur', soundKill);
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) soundKill();
+});
+window.addEventListener('pagehide', soundKill);
+window.addEventListener('beforeunload', soundKill);
+</script>
+    
+</body>
+</html>
