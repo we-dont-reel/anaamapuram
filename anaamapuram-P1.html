@@ -68,7 +68,6 @@ html, body {
   z-index: 9999;
   box-sizing: border-box;
   border-radius: 8px;
-  display: none;
 }
 
 .switch {
@@ -162,7 +161,7 @@ input:checked + .slider:before {
 </div>
 
 <div class="sound-toggle">
-  <span>Sound</span>
+  <span>Keep Awake</span>
   <label class="switch">
     <input type="checkbox" id="soundSwitch">
     <span class="slider"></span>
@@ -173,87 +172,87 @@ input:checked + .slider:before {
 const mediaData = [
   {
     image: "https://dontreel.com/anaamapuram/sw1/s0.jpg",
-    track: "https://dontreel.com/anaamapuram/sw1/title.mp3"
+    track: ""
   },
   {
     image: "https://dontreel.com/anaamapuram/sw1/s1.jpg",
-    track: "https://dontreel.com/anaamapuram/sw1/firsthouse.mp3"
+    track: ""
   },
   {
     image: "https://dontreel.com/anaamapuram/sw1/s2.jpg",
-    track: "https://dontreel.com/anaamapuram/sw1/firsthouse.mp3"
+    track: ""
   },
   {
     image: "https://dontreel.com/anaamapuram/sw1/s3.jpg",
-    track: "https://dontreel.com/anaamapuram/sw1/train.mp3"
+    track: ""
   },
   {
     image: "https://dontreel.com/anaamapuram/sw1/s4.jpg",
-    track: "https://dontreel.com/anaamapuram/sw1/morning.mp3"
+    track: ""
   },
   {
     image: "https://dontreel.com/anaamapuram/sw1/s5.jpg",
-    track: "https://dontreel.com/anaamapuram/sw1/bus.mp3"
+    track: ""
   },
   {
     image: "https://dontreel.com/anaamapuram/sw1/s6.jpg",
-    track: "https://dontreel.com/anaamapuram/sw1/bus.mp3"
+    track: ""
   },
   {
     image: "https://dontreel.com/anaamapuram/sw1/s7.jpg",
-    track: "https://dontreel.com/anaamapuram/sw1/happy.mp3"
+    track: ""
   },
   {
     image: "https://dontreel.com/anaamapuram/sw1/s8.jpg",
-    track: "https://dontreel.com/anaamapuram/sw1/firsthouse.mp3"
+    track: ""
   },
   {
     image: "https://dontreel.com/anaamapuram/sw1/s9.jpg",
-    track: "https://dontreel.com/anaamapuram/sw1/sad.mp3"
+    track: ""
   },
   {
     image: "https://dontreel.com/anaamapuram/sw1/s10.jpg",
-    track: "https://dontreel.com/anaamapuram/sw1/sad.mp3"
+    track: ""
   },
   {
     image: "https://dontreel.com/anaamapuram/sw1/s11.jpg",
-    track: "https://dontreel.com/anaamapuram/sw1/sad.mp3"
+    track: ""
   },
   {
     image: "https://dontreel.com/anaamapuram/sw1/s12.jpg",
-    track: "https://dontreel.com/anaamapuram/sw1/sad.mp3"
+    track: ""
   },
   {
     image: "https://dontreel.com/anaamapuram/sw1/s13.jpg",
-    track: "https://dontreel.com/anaamapuram/sw1/firsthouse.mp3"
+    track: ""
   },
   {
     image: "https://dontreel.com/anaamapuram/sw1/s14.jpg",
-    track: "https://dontreel.com/anaamapuram/sw1/darksleep.mp3"
+    track: ""
   },
   {
     image: "https://dontreel.com/anaamapuram/sw1/s15.jpg",
-    track: "https://dontreel.com/anaamapuram/sw1/temple.mp3"
+    track: ""
   },
   {
     image: "https://dontreel.com/anaamapuram/sw1/s16.jpg",
-    track: "https://dontreel.com/anaamapuram/sw1/hospital.mp3"
+    track: ""
   },
   {
     image: "https://dontreel.com/anaamapuram/sw1/s17.jpg",
-    track: "https://dontreel.com/anaamapuram/sw1/title.mp3"
+    track: ""
   },
   {
     image: "https://dontreel.com/anaamapuram/sw1/s18.jpg",
-    track: "https://dontreel.com/anaamapuram/sw1/kingly.mp3"
+    track: ""
   },
   {
     image: "https://dontreel.com/anaamapuram/sw1/s19.jpg",
-    track: "https://dontreel.com/anaamapuram/sw1/darksleep.mp3"
+    track: ""
   },
   {
     image: "https://dontreel.com/anaamapuram/sw1/s20.jpg",
-    track: "https://dontreel.com/anaamapuram/sw1/title.mp3"
+    track: ""
   }
 ];
 var slideIndex = 0;
@@ -442,12 +441,12 @@ function soundKill() {
 </script>
     
 <script>
-window.addEventListener('blur', soundKill);
 document.addEventListener('visibilitychange', () => {
-  if (document.hidden) soundKill();
+  if (!soundSwitch || !soundSwitch.checked) return;
+  if (!document.hidden) {
+    soundStart();
+  }
 });
-window.addEventListener('pagehide', soundKill);
-window.addEventListener('beforeunload', soundKill);
 </script>
     
 </body>
